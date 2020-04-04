@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #eaeaea;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.card-deck {
+  flex-wrap: wrap;
+}
+
+.card {
+  min-width: calc(33.333333% - 30px);
+  max-width: calc(33.333333% - 30px);
+}
+
+.card-header {
+  display: flex;
+}
+
+.card-header .card-title {
+  flex-grow: 1;
+  max-width: calc(100% - 32px - 1.25rem);
+}
+
+.card-header svg {
+ margin-left: 6px;
+ min-width: 16px;
+}
+
+.form-group {
+  position: relative;
+}
