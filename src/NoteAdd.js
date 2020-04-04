@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import NotesGrid from "./NotesGrid";
 
 export default class NoteAdd extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.onSubmit = this.onSubmit.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
     }
@@ -28,14 +27,15 @@ export default class NoteAdd extends Component {
                 r.json().then(r => alert(r.message));
                 return;
             }
+
+            this.props.noteAdded()
+
             this.setState({
                 note: {
                     title: '',
                     text: '',
                 }
             });
-            alert('success :)');
-
         })
     }
 

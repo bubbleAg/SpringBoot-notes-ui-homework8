@@ -15,6 +15,7 @@ export default class NoteCard extends Component {
 
   render() {
     const { note } = this.props;
+
     return (
       <div className="card bg-light mb-3">
         <div className="card-header">
