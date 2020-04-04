@@ -28,7 +28,7 @@ export default class NoteAdd extends Component {
                 return;
             }
 
-            this.props.noteAdded()
+            this.props.noteUpdated()
 
             this.setState({
                 note: {

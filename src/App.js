@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import NoteAdd from './NoteAdd';
 import NotesGrid from './NotesGrid';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import ArchiveNotesGrid from './ArchivedNotesGrid';
+import NoteEdit from './NoteEdit';
 
 export default class App extends Component {
 
   constructor(props) {
     super(props);
-    this.noteAdded = this.noteAdded.bind(this);
+    this.noteUpdated = this.noteUpdated.bind(this);
   }
 
   state = {
@@ -17,10 +25,11 @@ export default class App extends Component {
     fetch('http://localhost:8080/notes')
       .then(response => response.json())
       .then(data => {
+        let notes = [];
         if (data._embedded) {
-          const notes = data._embedded.noteList.sort(this.sortByLastUpdateDateDesc);
-          this.setState({ notes })
+          notes = data._embedded.noteList.sort(this.sortByLastUpdateDateDesc);
         }
+        this.setState({ notes });
       });
   }
 
@@ -29,10 +38,11 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    console.log("getting all notes");
     this.getAllNotes();
   }
 
-  noteAdded(newNote) {
+  noteUpdated() {
     this.getAllNotes();
   }
 
@@ -40,12 +50,24 @@ export default class App extends Component {
     const { notes } = this.state;
 
     return (
-      <div className="container my-3">
-        <h1 align="center">Notes App</h1>
-        <NoteAdd noteAdded={this.noteAdded} />
-        <br /><br />
-        <NotesGrid notes={notes} />
-      </div>
+      <Router>
+        <Switch>
+          <Route path="/archived" component={ArchiveNotesGrid} />
+          <Route path="/edit/:id" component={NoteEdit} />
+          <div className="container my-3">
+            <h1 align="center">Notes App</h1>
+            <NoteAdd noteUpdated={this.noteUpdated} />
+            <div className="container my-3">
+              <Link className="btn btn-info" to="/archived" style={{ float: 'right' }}>
+                Show archived notes
+              </Link>
+            </div>
+            <br /><br /><br />
+            <NotesGrid notes={notes} noteUpdated={this.noteUpdated} />
+
+          </div>
+        </Switch>
+      </Router>
     )
   }
 }
